@@ -78,27 +78,46 @@
                                         </div>
                                     </div>
                                 </form>
-                                <form id="register-form" action="!!!!!!" method="post" role="form" style="display: none;">
+                                
+                                <form id="register-form" action="" method="post" role="form" style="display: none;">
                                     <div class="form-group">
-                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                        <label for="l_TC">TC Kimlik No:</label>
+                                        <input type="text" name="TC" id="TC" tabindex="1" class="form-control" placeholder="TC Kimlik No" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                        <input type="text" name="ad" id="ad" tabindex="1" class="form-control" placeholder="Ad" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                        <input type="text" name="soyad" id="soyad" tabindex="1" class="form-control" placeholder="Soyad" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                        <input type="text" name="cinsiyet" id="cinsiyet" tabindex="1" class="form-control" placeholder="Cinsiyet" value="">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" name="dtarih" id="dtarih" tabindex="1" class="form-control" placeholder="Doğum Tarihi" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="eposta" id="eposta" tabindex="1" class="form-control" placeholder="E-Posta" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="tel" id="tel" tabindex="1" class="form-control" placeholder="Telefon" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="adres" id="adres" tabindex="1" class="form-control" placeholder="Adres" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="sifre" id="sifre" tabindex="2" class="form-control" placeholder="Şifre">
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Kayıt Ol">
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -106,6 +125,34 @@
             </div>
         </div>
     </div>
+    
+    <?php
+            require('connect.php');
+                if (isset($_POST['TC']) && isset($_POST['ad']) && isset($_POST['soyad']) && isset($_POST['cinsiyet']) && isset($_POST['dtarih']) && isset($_POST['eposta']) && isset($_POST['tel']) && isset($_POST['adres']) && isset($_POST['sifre'])){
+                    $TC = $_POST['TC'];
+                    $ad = $_POST['ad'];
+                    $soyad = $_POST['soyad'];
+                    $cinsiyet = $_POST['cinsiyet'];
+                    $dtarih = $_POST['dtarih'];
+                    $eposta = $_POST['eposta'];
+                    $tel = $_POST['tel'];
+                    $adres = $_POST['adres'];
+                    $sifre = $_POST['sifre'];
+
+                    if (empty($TC) || empty($ad) || empty($soyad) || empty($cinsiyet) || empty($dtarih) || empty($eposta) || empty($tel) || empty($adres) || empty($sifre)) {
+                        echo "Alanlar bos birakilamaz";
+                    }
+
+                    else{
+                      $query = "INSERT INTO `Hasta` (TC, Ad, Soyad, Cinsiyet, DTarih, EPosta, Telefon, Adres, Sifre) VALUES ('$TC', '$ad', '$soyad', '$cinsiyet', '$dtarih', '$eposta', '$tel', '$adres', '$sifre')";
+                      $result = mysql_query($query);
+
+                      if($result){
+                          echo "User Created Successfully.";
+                      }
+                    }
+                }
+        ?>
 
 </body>
 
