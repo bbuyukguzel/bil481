@@ -88,7 +88,7 @@ if (!empty($_POST['remove-submit'])) {
 <html lang="en">
 
 <head>
-    <title>Hasta Randevu Sistemi</title>
+    <title>Yonetici Paneli</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

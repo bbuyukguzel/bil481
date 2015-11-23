@@ -44,7 +44,7 @@ if (!empty($_POST['login-submit'])) {
         $count = mysql_num_rows($result);
         if ($count == 1) {
             $_SESSION['TC'] = $TC;
-            $priv = 0;
+            $_SESSION['priv'] = 0;
         }
         
         else {
@@ -53,7 +53,7 @@ if (!empty($_POST['login-submit'])) {
             $count = mysql_num_rows($result);
             if ($count == 1) {
                 $_SESSION['TC'] = $TC;
-                $priv = 2;
+                $_SESSION['priv'] = 1;
             }
             
             else {
@@ -62,7 +62,7 @@ if (!empty($_POST['login-submit'])) {
                 $count = mysql_num_rows($result);
                 if ($count == 1) {
                     $_SESSION['TC'] = $TC;
-                    $priv = 2;
+                    $_SESSION['priv'] = 2;
                 }
                 
                 else{
@@ -78,15 +78,15 @@ if (!empty($_POST['login-submit'])) {
 
     if (isset($_SESSION['TC'])) {
         $username = $_SESSION['TC'];
-        if($priv == 0){
+        if($_SESSION['priv'] == 0){
             header("Location: hasta.php");
             die("Redirecting to: hasta.php");
         }
-        elseif($priv == 1){
+        elseif($_SESSION['priv'] == 1){
             header("Location: doktor.php");
             die("Redirecting to: doktor.php");
         }
-        elseif($priv == 2){
+        elseif($_SESSION['priv'] == 2){
             header("Location: yonetici.php");
             die("Redirecting to: yonetici.php");
         }
