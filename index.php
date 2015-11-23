@@ -48,7 +48,7 @@ if (!empty($_POST['login-submit'])) {
         }
         
         else {
-            $query = "SELECT * FROM `Yonetici` WHERE TC='$TC' and sifre='$sifre'";
+            $query = "SELECT * FROM `Doktor` WHERE TC='$TC' and sifre='$sifre'";
             $result = mysql_query($query) or die(mysql_error());
             $count = mysql_num_rows($result);
             if ($count == 1) {
