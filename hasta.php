@@ -48,7 +48,7 @@ if (isset($_SESSION['TC'])) {
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/profile.php">Profil Bilgileri</a></li>
-                <li><a href="/doktor.php"><?php echo $user;?></a><li>
+                <li><a href="/hasta.php"><?php echo $user;?></a><li>
                 <li><a href="/logout.php">Çıkış Yap</a></li>
               </ul>
           </div><!-- /.navbar-collapse -->

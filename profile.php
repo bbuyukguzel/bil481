@@ -20,6 +20,9 @@ if (isset($_SESSION['TC'])) {
 if (isset($_SESSION['priv'])) {
     if($_SESSION['priv'] == 1){
 
+        $doktorform = "block";
+        $hastaform = "none";
+
         ////////////////////////////////////////////
         ////////////////////////////////////////////
         $query = "SELECT * FROM Doktor WHERE TC='$user'";
@@ -37,7 +40,7 @@ if (isset($_SESSION['priv'])) {
         ////////////////////////////////////////////
 
 
-        if (!empty($_POST['add-submit'])) {
+        if (!empty($_POST['add-submit-d'])) {
 
                 if (isset($_POST['eposta']) && !empty($_POST['eposta'])){
                     $eposta = $_POST['eposta'];
@@ -58,8 +61,57 @@ if (isset($_SESSION['priv'])) {
             }
 
     }
+
     else{
-        echo "asdasdasd";
+        $doktorform = "none";
+        $hastaform = "block";
+
+        ////////////////////////////////////////////
+        ////////////////////////////////////////////
+        $query = "SELECT * FROM Hasta WHERE TC='$user'";
+        $result = mysql_query($query) or die(mysql_error());
+        $row = mysql_fetch_array($result);
+
+        $TC = $row["TC"];
+        $ad = $row["Ad"];
+        $soyad = $row["Soyad"];
+        $cinsiyet = $row["Cinsiyet"];
+        $dtarih = $row["DTarih"];
+        $eposta = $row["EPosta"];
+        $sifre = $row["Sifre"];
+        $telefon = $row["Telefon"];
+        $adres = $row["Adres"];
+        $urladr = '/hasta.php';
+        ////////////////////////////////////////////
+        ////////////////////////////////////////////
+
+
+        if (!empty($_POST['add-submit-h'])) {
+
+                if (isset($_POST['eposta']) && !empty($_POST['eposta'])){
+                    $eposta = $_POST['eposta'];
+                }
+                if (isset($_POST['sifre']) && !empty($_POST['sifre'])){
+                    $sifre = $_POST['sifre'];
+                }
+                if (isset($_POST['adres']) && !empty($_POST['adres'])){
+                    $adres = $_POST['adres'];
+                }
+                if (isset($_POST['telefon']) && !empty($_POST['telefon'])){
+                    $telefon = $_POST['telefon'];
+                }
+                
+                $query = "UPDATE `Hasta` SET EPosta='$eposta',Sifre='$sifre',Adres='$adres',Telefon='$telefon' WHERE TC='$TC'";
+                $result = mysql_query($query);
+                if ($result) {
+                    $content = "<div class='alert alert-info alert-dismissible' role='alert'>
+                    <span class='close' data-dismiss='alert'>&times;</span>
+                    Bilgileriniz guncellendi.
+                    </div>";
+                }
+
+            }
+
     }
 }
 
@@ -108,7 +160,7 @@ if (isset($_SESSION['priv'])) {
                         <div class="row">
                             <?php echo $content; ?> 
                             <div class="col-xs-6">
-                                <a href="#" class="active" id="doktor-ekle-link">Kullanıcı Bilgilerini Düzenle</a>
+                                <a href="#" class="active" id="doktor-guncelle-link">Kullanıcı Bilgilerini Düzenle</a>
                             </div>
                         </div>
                         <hr>
@@ -117,20 +169,24 @@ if (isset($_SESSION['priv'])) {
                         <div class="row">
                             <div class="col-lg-12">
 
-                                <form id="doktor-ekle" action="" method="post" role="form" style="display: block;">
-
+                                <form id="doktor-guncelle" action="" method="post" role="form" style="display: <?php echo $doktorform?>;">
+                                    <label for="l_TC">TC Kimlik No:</label>
                                     <div class="form-group">
                                         <input type="text" name="TC" id="TC" tabindex="1" class="form-control" placeholder="Doktor TC Kimlik No" value="<?php echo $TC ?>" readonly>
                                     </div>
+                                    <label for="l_ad">Ad:</label>
                                     <div class="form-group">
                                         <input type="text" name="ad" id="ad" tabindex="1" class="form-control" placeholder="Doktor Adı" value="<?php echo $ad ?>" readonly>
                                     </div>
+                                    <label for="l_soyad">Soyad:</label>
                                     <div class="form-group">
                                         <input type="text" name="soyad" id="soyad" tabindex="1" class="form-control" placeholder="Doktor Soyadı" value="<?php echo $soyad ?>" readonly>
-                                    </div>                                                                            
+                                    </div>                    
+                                    <label for="l_eposta">E-Posta:</label>                                                        
                                     <div class="form-group">
-                                        <input type="email" name="eposta" id="eposta" tabindex="1" class="form-control" placeholder="Yeni E-Posta" value="">
+                                        <input type="email" name="eposta" id="eposta" tabindex="1" class="form-control" placeholder="Yeni E-Posta" value="<?php echo $eposta ?>">
                                     </div>
+                                    <label for="l_sifre">Şifre:</label>
                                     <div class="form-group">
                                         <input type="password" name="sifre" id="sifre" tabindex="2" class="form-control" placeholder="Yeni Şifre">
                                     </div>
@@ -138,11 +194,61 @@ if (isset($_SESSION['priv'])) {
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="add-submit" id="add-submit" tabindex="4" class="form-control btn btn-login" value="Bilgileri Güncelle">
+                                                <input type="submit" name="add-submit-d" id="add-submit-d" tabindex="4" class="form-control btn btn-login" value="Bilgileri Güncelle">
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+
+
+
+                                <form id="hasta-guncelle" action="" method="post" role="form" style="display: <?php echo $hastaform?>;">
+                                    <label for="l_TC">TC Kimlik No:</label>
+                                    <div class="form-group">
+                                        <input type="text" name="TC" id="TC" tabindex="1" class="form-control" placeholder="Hasta TC Kimlik No" value="<?php echo $TC ?>" readonly>
+                                    </div>
+                                    <label for="l_ad">Ad:</label>
+                                    <div class="form-group">
+                                        <input type="text" name="ad" id="ad" tabindex="1" class="form-control" placeholder="Hasta Adı" value="<?php echo $ad ?>" readonly>
+                                    </div>
+                                    <label for="l_soyad">Soyad:</label>
+                                    <div class="form-group">
+                                        <input type="text" name="soyad" id="soyad" tabindex="1" class="form-control" placeholder="Hasta Soyadı" value="<?php echo $soyad ?>" readonly>
+                                    </div>        
+                                    <label for="l_cinsiyet">Cinsiyet:</label>     
+                                    <div class="form-group">
+                                        <input type="text" name="cinsiyet" id="cinsiyet" tabindex="1" class="form-control" placeholder="Hasta Cinsiyeti" value="<?php echo $cinsiyet ?>" readonly>
+                                    </div>     
+                                    <label for="l_dtarih">Doğum Tarihi:</label>
+                                    <div class="form-group">
+                                        <input type="text" name="dtarih" id="dtarih" tabindex="1" class="form-control" placeholder="Hasta Doğum Tarihi" value="<?php echo $dtarih ?>" readonly>
+                                    </div>     
+                                    <label for="l_telefon">Telefon:</label>
+                                    <div class="form-group">
+                                        <input type="text" name="telefon" id="telefon" tabindex="1" class="form-control" placeholder="Hasta Telefon" value="<?php echo $telefon ?>">
+                                    </div>    
+                                    <label for="l_adres">Adres:</label>  
+                                    <div class="form-group">
+                                        <textarea name="adres" id="adres" tabindex="1" class="form-control" placeholder="Hasta Adresi" rows="3"><?php echo $adres ?></textarea>
+                                    </div>       
+                                    <label for="l_eposta">E-Posta:</label>
+                                    <div class="form-group">
+                                        <input type="email" name="eposta" id="eposta" tabindex="1" class="form-control" placeholder="Hasta E-Posta" value="<?php echo $eposta ?>">
+                                    </div>
+                                    <label for="l_sifre">Şifre:</label>
+                                    <div class="form-group">
+                                        <input type="password" name="sifre" id="sifre" tabindex="2" class="form-control" placeholder="Hasta Şifre">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="add-submit-h" id="add-submit-h" tabindex="4" class="form-control btn btn-login" value="Bilgileri Güncelle">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>                                
 
 
                             </div>
