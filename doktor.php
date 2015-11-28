@@ -57,7 +57,7 @@ if (isset($_SESSION['TC'])) {
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-          <a href="#" class="btn btn-info btn-block btn-lg" role="button">Randevu Saati Belirle</a>
+          <a href="/takvim_ekle.php" class="btn btn-info btn-block btn-lg" role="button">Randevu Saati Belirle</a>
           <a href="/takvim.php" class="btn btn-info btn-block btn-lg" role="button">Takvimi Gör</a>
 
         </div>

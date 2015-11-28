@@ -36,6 +36,20 @@ if (!empty($_POST['add-submit'])) {
             $query = "INSERT INTO `Doktor` (TC, Ad, Soyad, EPosta, Sifre, BirimID) VALUES ('$TC', '$ad', '$soyad', '$eposta', '$sifre', '$birimid')";
             $result = mysql_query($query);
             if ($result) {
+                if (!file_exists('doktor/'.$TC)) {
+                    mkdir('doktor/'.$TC, 0777, true);
+                }
+
+                $myfile = fopen("doktor/".$TC."/dataset.js", "w") or die("Unable to open file!");
+                $txt = "function getEvents(){
+
+    return [
+
+    ];
+}";
+                fwrite($myfile, $txt);
+                fclose($myfile);
+
                 $content = "<div class='alert alert-info alert-dismissible' role='alert'>
                             <span class='close' data-dismiss='alert'>&times;</span>
                             Doktor bilgisi sisteme eklendi.

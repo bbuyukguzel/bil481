@@ -57,27 +57,28 @@ if (isset($_SESSION['TC'])) {
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-  
+
 
 
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
+
           <div class="mycal" style="width:100%;"></div>
 
           <script type="text/javascript" src="/lib/underscore-min.js"></script>
           <script type="text/javascript" src="/lib/moment.min.js"></script>
-          <script type="text/javascript" src="dataset.js"></script>
+          <script type="text/javascript" src="<?php echo "/doktor/".$user;?>/dataset.js"></script>
           <script type="text/javascript" src="easycal.js"></script>
 
           <script>
             $('.mycal').easycal({
-              startDate : '31-10-2014', // OR 31/10/2104
+              startDate : '30-11-2015', // OR 31/10/2104
               timeFormat : 'HH:mm',
               columnDateFormat : 'dddd, DD MMM',
               minTime : '09:00:00',
-              maxTime : '19:00:00',
+              maxTime : '18:30:00',
               slotDuration : 30,
               timeGranularity : 15,
               
