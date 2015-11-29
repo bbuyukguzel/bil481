@@ -12,7 +12,17 @@ if (empty($_SESSION['TC'])) {
 
 // Read your session (if it is set)
 if (isset($_SESSION['TC'])) {
-	$user = $_SESSION['TC'];
+    if($_SESSION['priv'] == 0){
+        header("Location: hasta.php");
+        die("Redirecting to: hasta.php");
+    }
+    elseif($_SESSION['priv'] == 2){
+        header("Location: yonetici.php");
+        die("Redirecting to: yonetici.php");
+    }
+    else{
+        $user = $_SESSION['TC'];
+    }
 }
 
 
@@ -52,12 +62,13 @@ if (isset($_SESSION['TC'])) {
 
 
 
-
+    <br><br>
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
           <a href="/takvim_ekle.php" class="btn btn-info btn-block btn-lg" role="button">Randevu Saati Belirle</a>
+          <br>
           <a href="/takvim.php" class="btn btn-info btn-block btn-lg" role="button">Takvimi Gör</a>
 
         </div>

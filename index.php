@@ -1,6 +1,25 @@
 
 <?php
 
+session_start();
+
+if (!empty($_SESSION['TC'])) {
+    if (isset($_SESSION['TC'])) {
+        if($_SESSION['priv'] == 0){
+            header("Location: hasta.php");
+            die("Redirecting to: hasta.php");
+        }
+        if($_SESSION['priv'] == 1){
+            header("Location: doktor.php");
+            die("Redirecting to: doktor.php");
+        }
+        elseif($_SESSION['priv'] == 2){
+            header("Location: yonetici.php");
+            die("Redirecting to: yonetici.php");
+        }
+    }
+}
+
 if (!empty($_POST['register-submit'])) {
     require ('connect.php');
 

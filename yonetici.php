@@ -12,7 +12,17 @@ if (empty($_SESSION['TC'])) {
 
 // Read your session (if it is set)
 if (isset($_SESSION['TC'])) {
-	$user = $_SESSION['TC'];
+    if($_SESSION['priv'] == 0){
+        header("Location: hasta.php");
+        die("Redirecting to: hasta.php");
+    }
+    elseif($_SESSION['priv'] == 1){
+        header("Location: doktor.php");
+        die("Redirecting to: doktor.php");
+    }
+    else{
+        $user = $_SESSION['TC'];
+    }
 }
 
 

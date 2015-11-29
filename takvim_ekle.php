@@ -23,9 +23,16 @@ if (!empty($_POST['add-submit'])) {
     $bitsaat = $_POST['bitsaat'];
 
     if (empty($gun) || empty($bsaat) || empty($bitsaat)) {
-      echo "Alanlar bos birakilamaz";
+      $content = "<div class='alert alert-info alert-dismissible' role='alert'>
+      <span class='close' data-dismiss='alert'>&times;</span>
+      Alanlar boş bırakılamaz.
+    </div>";
+      #echo "Alanlar bos birakilamaz";
     }
     else {
+      while ($bsaat != $bitsaat) {
+        # code...
+      }
 
       $mytext = "return [
       {
@@ -96,10 +103,10 @@ if (!empty($_POST['add-submit'])) {
     </nav>
 
 
-
+    <br><br>
     <div class="container">
       <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-6 col-md-offset-3">
 
           <?php echo $content; ?> 
           <form id="randevu-ekle" action="" method="post" role="form" style="display: block;">
@@ -109,12 +116,12 @@ if (!empty($_POST['add-submit'])) {
               <select name="gun" id="gun" class="form-control">
                 <option></option>
                 <option value="30-11-2015">Monday, 30 Nov</option>
-                <option value="1-12-2015">Tuesday, 01 Dec</option>
-                <option value="2-12-2015">Wednesday, 02 Dec</option>
-                <option value="3-12-2015">Thursday, 03 Dec</option>
-                <option value="4-12-2015">Friday, 04 Dec</option>
-                <option value="5-12-2015">Saturday, 05 Dec</option>
-                <option value="6-12-2015">Sunday, 06 Dec</option>
+                <option value="01-12-2015">Tuesday, 01 Dec</option>
+                <option value="02-12-2015">Wednesday, 02 Dec</option>
+                <option value="03-12-2015">Thursday, 03 Dec</option>
+                <option value="04-12-2015">Friday, 04 Dec</option>
+                <option value="05-12-2015">Saturday, 05 Dec</option>
+                <option value="06-12-2015">Sunday, 06 Dec</option>
               </select>
 
               <br>
@@ -167,7 +174,7 @@ if (!empty($_POST['add-submit'])) {
                 <option value="18:00:00">18:00</option>
               </select>
 
-
+              <br><br>
               <div class="form-group">
                 <div class="row">
                   <div class="col-sm-6 col-sm-offset-3">
