@@ -30,10 +30,6 @@ if (!empty($_POST['add-submit'])) {
       #echo "Alanlar bos birakilamaz";
     }
     else {
-      while ($bsaat != $bitsaat) {
-        # code...
-      }
-
       $mytext = "return [
       {
         id : 'E07',
@@ -43,19 +39,15 @@ if (!empty($_POST['add-submit'])) {
         backgroundColor: '#12CA6B',
         textColor : '#FFF'
       },";
-
       $path_to_file = 'doktor/'.$user.'/dataset.js';
       $file_contents = file_get_contents($path_to_file);
       $file_contents = str_replace("return [",$mytext,$file_contents);
       file_put_contents($path_to_file,$file_contents);
-
-
       $content = "<div class='alert alert-info alert-dismissible' role='alert'>
       <span class='close' data-dismiss='alert'>&times;</span>
       Randevu bilgisi takviminize eklendi.
     </div>";
   }
-
 }
 }
 

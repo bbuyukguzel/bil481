@@ -4,6 +4,14 @@ function getEvents(){
       {
         id : 'E07',
         title : '',
+        start : '03-12-2015 09:00:00',
+        end : '03-12-2015 10:30:00',
+        backgroundColor: '#12CA6B',
+        textColor : '#FFF'
+      },
+      {
+        id : 'E07',
+        title : '',
         start : '2-12-2015 17:30:00',
         end : '2-12-2015 18:00:00',
         backgroundColor: '#12CA6B',

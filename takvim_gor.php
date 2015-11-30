@@ -17,6 +17,60 @@ if (isset($_SESSION['TC'])) {
 }
 
 
+
+if (!empty($_POST['add-submit'])) {
+
+  if (isset($_POST['gun']) && isset($_POST['bsaat'])) {
+    $gun = $_POST['gun'];
+    $bsaat = $_POST['bsaat'];
+
+    if (empty($gun) || empty($bsaat)) {
+            #echo "Alanlar bos birakilamaz";
+      $content = "<div class='alert alert-info alert-dismissible' role='alert'>
+      <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+      Alanlar bos birakilamaz.
+    </div>";
+  }
+
+  else {
+
+    $query = "SELECT * FROM Hasta WHERE TC='$user'";
+    $result = mysql_query($query) or die(mysql_error());
+    $row = mysql_fetch_array($result);
+    $aa = $row['Ad'];
+    $bb = $row['Soyad'];
+    $saatler = array("09:00:00","09:30:00","10:00:00","10:30:00","11:00:00","11:30:00","12:00:00","12:30:00","13:00:00","13:30:00","14:00:00","14:30:00","15:00:00","15:30:00","16:00:00","16:30:00","17:00:00","17:30:00","18:00:00");
+    $bas = array_search($bsaat, $saatler);
+
+      $mytext = "return [
+      {
+        id : 'E07',
+        title : '".$aa.' '.$bb."',
+        start : '".$gun.' '.$bsaat."',
+        end : '".$gun.' '.$saatler[$bas+1]."',
+        backgroundColor: '#12CA6B',
+        textColor : '#FFF'
+      },";
+
+      $path_to_file = 'doktor/'.$docTC.'/dataset.js';
+      $file_contents = file_get_contents($path_to_file);
+      $file_contents = str_replace("return [",$mytext,$file_contents);
+      file_put_contents($path_to_file,$file_contents);
+
+    
+
+    $content = "<div class='alert alert-info alert-dismissible' role='alert'>
+    <span class='close' data-dismiss='alert'>&times;</span>
+    Randevu bilgisi takviminize eklendi.
+  </div>";
+}
+
+}
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -108,31 +162,31 @@ if (isset($_SESSION['TC'])) {
                   <option value="17:00:00">17:00</option>
                   <option value="17:30:00">17:30</option>
                 </select>
-</div>
-                <br><br>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3">
-                      <input type="submit" name="add-submit" id="add-submit" tabindex="4" class="form-control btn btn-login" value="Randevu Ekle">
-                    </div>
+              </div>
+              <br><br>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6 col-sm-offset-3">
+                    <input type="submit" name="add-submit" id="add-submit" tabindex="4" class="form-control btn btn-login" value="Randevu Ekle">
                   </div>
                 </div>
-              </form>
-
-            </div>
+              </div>
+            </form>
 
           </div>
 
-          <div class="col-md-8">
-            <div class="mycal" style="width:100%;"></div>
+        </div>
 
-            <script type="text/javascript" src="/lib/underscore-min.js"></script>
-            <script type="text/javascript" src="/lib/moment.min.js"></script>
-            <script type="text/javascript" src="<?php echo "/doktor/".$docTC;?>/dataset.js"></script>
-            <script type="text/javascript" src="easycal.js"></script>
+        <div class="col-md-8">
+          <div class="mycal" style="width:100%;"></div>
 
-            <script>
-              $('.mycal').easycal({
+          <script type="text/javascript" src="/lib/underscore-min.js"></script>
+          <script type="text/javascript" src="/lib/moment.min.js"></script>
+          <script type="text/javascript" src="<?php echo "/doktor/".$docTC;?>/dataset.js"></script>
+          <script type="text/javascript" src="easycal.js"></script>
+
+          <script>
+            $('.mycal').easycal({
               startDate : '30-11-2015', // OR 31/10/2104
               timeFormat : 'HH:mm',
               columnDateFormat : 'dddd, DD MMM',
@@ -150,22 +204,22 @@ if (isset($_SESSION['TC'])) {
 
               events : getEvents(),
               
-              overlapColor : '#FF0',
-              overlapTextColor : '#000',
-              overlapTitle : 'Multiple'
+              //overlapColor : '#FF0',
+              //overlapTextColor : '#000',
+              //overlapTitle : 'Multiple'
             });
 
-            </script>
-            <br><br>
-            <a href="/hasta.php" class="btn btn-info btn-block btn-lg" role="button">Ana Sayfaya Geri Dön</a>
-
-          </div>
+          </script>
+          <br><br>
+          <a href="/hasta.php" class="btn btn-info btn-block btn-lg" role="button">Ana Sayfaya Geri Dön</a>
 
         </div>
-        </div>
+
       </div>
+    </div>
+  </div>
 
 
 
-    </body>
-    </html>
+</body>
+</html>
